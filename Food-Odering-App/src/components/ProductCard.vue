@@ -1,33 +1,36 @@
-<script>
+<script setup>
+defineProps({
+  product: {
+    type: Object,
+    required: true,
+  },
+})
 
+defineEmits(['order'])
 </script>
 
 <template>
-    
-<div class="text-white">
-<div>
-    <img src="" alt="">
-</div>
-<div>
+  <div class="text-white">
     <div>
-       Burger 
+      <img class="w-100 h-100 object-fill" :src="product.image" :alt="product.name" />
     </div>
     <div>
-        <h1>
-            Tuffle Mushroom burger
-        </h1>
-        <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam rem aperiam.
-        </p>
+      <div>{{ product.category }}</div>
+      <div>
+        <h1>{{ product.name }}</h1>
+        <p>{{ product.description }}</p>
         <div>
-            <p>20 min</p>
-            <p>680 cal</p>
+          <p>{{ product.rating }} ⭐</p>
+          <p>Rs. {{ product.price }}</p>
+          <div class="flex gap-2">
+            <button>❤️</button>
+            <!-- ✅ meal → product -->
+            <button class="bg-amber-500 cursor-pointer" @click="$emit('order', product)">
+              Order Now
+            </button>
+          </div>
         </div>
+      </div>
     </div>
-    <div>
-
-    </div>
-</div>
-<h1>hello</h1>
-</div>
+  </div>
 </template>

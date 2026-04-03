@@ -1,7 +1,32 @@
-export async function useFetch(){
+import { onMounted, ref } from "vue"
 
-    const response = await fetch("https://dummyjson.com/products")
-    const data = await response.json()
-    console.log(data)
+export function useFetch(url){
+
+    const data =  ref([])
+    const loading = ref(false)
+    const error = ref(null)
+    
+    const fetchData = async() =>{
+        try{
+            loading.value = true
+            const res = await fetch(url)
+            console.log("res",res)
+            data.value = await res.json()
+        }
+        catch(err){
+            error.value = err.message
+        }
+        finally{
+            loading.value = false
+        }
+    }
+
+    onMounted(fetchData)
+
+    return {
+        data,
+        loading,
+        error
+    }
 
 }
