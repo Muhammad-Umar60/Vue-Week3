@@ -1,10 +1,12 @@
 <script setup>
+
 defineProps({
   product: {
     type: Object,
     required: true,
   },
 })
+// console.log(product)
 
 defineEmits(['order'])
 </script>
