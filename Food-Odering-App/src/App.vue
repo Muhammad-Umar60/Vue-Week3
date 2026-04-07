@@ -7,8 +7,6 @@ import HomeView from './views/HomeView.vue';
 <template>
   <Navbar/>
   <HomeView/>
-  <h1>You did it!</h1>
-
 </template>
 
 <style scoped></style>

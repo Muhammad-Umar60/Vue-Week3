@@ -2,12 +2,35 @@
 import ProductCard from './ProductCard.vue'
 import { useFetch } from '@/composables/useFetch'
 import BaseModal from './BaseModal.vue'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import ProductPaginatoin from './ProductPaginatoin.vue'
 
 const { data, loading, error } = useFetch('http://localhost:3000/products')
 
 const showModal = ref(false)
 const selectedMeal = ref(null)
+
+const totalItems = computed(() => {
+  return data.value ? data.value.length : 0
+})
+
+const itemsPerPage = 6
+const totalPages = computed(() => {
+  return Math.ceil(totalItems.value / itemsPerPage)
+})
+
+const currentPage = ref(1)
+const paginatedData = computed(() => {
+  if (!data.value) {
+    return []
+  }
+  const start = (currentPage.value - 1) * itemsPerPage
+  return data.value.slice(start, start + itemsPerPage)
+})
+
+// help in future if we scale const handlePage = (pageNo) => {
+//   currentPage.value = pageNo
+// }
 
 const openModal = (meal) => {
   selectedMeal.value = meal
@@ -22,9 +45,12 @@ const confirmOrder = () => {
 <template>
   <div class="p-4">
     <p v-if="loading">Loading...</p>
+    <p class="text-white">{{ totalItems }}</p>
+    <p class="text-white">{{ itemsPerPage }}</p>
+    <p class="text-white">{{ totalPages }}</p>
     <p v-if="error">Something went wrong!</p>
     <ul class="grid md:grid-cols-2 lg:grid-cols-3">
-      <li v-for="item in data" :key="item.id">
+      <li v-for="item in paginatedData" :key="item.id">
         <ProductCard @order="openModal" :product="item" />
       </li>
     </ul>
@@ -46,4 +72,10 @@ const confirmOrder = () => {
       <button @click="showModal = false">Cancel</button>
     </template>
   </BaseModal>
+
+  <ProductPaginatoin
+    :totalPages="totalPages"
+    :currentPage="currentPage"
+    @change-page="currentPage = $event"
+  />
 </template>
