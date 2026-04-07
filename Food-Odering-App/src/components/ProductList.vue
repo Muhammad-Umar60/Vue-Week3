@@ -44,10 +44,7 @@ const confirmOrder = () => {
 
 <template>
   <div class="p-4">
-    <p v-if="loading">Loading...</p>
-    <p class="text-white">{{ totalItems }}</p>
-    <p class="text-white">{{ itemsPerPage }}</p>
-    <p class="text-white">{{ totalPages }}</p>
+    <p class="text-white" v-if="loading">Loading...</p>
     <p v-if="error">Something went wrong!</p>
     <ul class="grid md:grid-cols-2 lg:grid-cols-3">
       <li v-for="item in paginatedData" :key="item.id">

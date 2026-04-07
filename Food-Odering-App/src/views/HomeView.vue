@@ -4,19 +4,23 @@ import ProductList from '@/components/ProductList.vue'
 
 <template>
   <header class="text-orange-600 p-6">
-    <div class="bg-amber-600/15">
-      <p>Fresh & Hot, Delivered Fast</p>
-      <h1>
-        <span class="text-white"> Whar are you </span>
-        <br />
-        craving
-        <span class="text-white"> today? </span>
-      </h1>
-      <input
+    <div class="bg-amber-600/15 flex justify-between  gap-5">
+      <div>
+
+        <p>Fresh & Hot, Delivered Fast</p>
+        <h1>
+          <span class="text-white"> Whar are you </span>
+          <br />
+          craving
+          <span class="text-white"> today? </span>
+        </h1>
+        <input
         class="p-2 w-80 rounded-2xl border border-gray-500"
         type="text"
         placeholder="Search burgers, sushi, pasta..."
-      />
+        />
+      </div>
+      <img  class="h-40" src="../assets/logo.png" alt="">
     </div>
   </header>
   <main class="p-5">
