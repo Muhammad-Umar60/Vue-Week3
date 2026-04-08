@@ -1,6 +1,5 @@
 <script setup>
 import ProductCard from '@/components/ProductCard.vue'
-import {  ref } from 'vue'
 import { useFavoritesStore } from '@/stores/favorites';
 
 import { computed } from 'vue';
@@ -8,8 +7,6 @@ import { computed } from 'vue';
 const favoritesStore = useFavoritesStore()
 
 const isEmpty = computed(() => favoritesStore.items.length === 0)
-
-
 
 </script>
 <template>
