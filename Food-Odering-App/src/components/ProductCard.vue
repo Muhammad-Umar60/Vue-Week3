@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 import { useFavoritesStore } from '@/stores/favorites'
+import { computed } from 'vue'
 
 const favoritesStore = useFavoritesStore()
 
@@ -11,14 +12,7 @@ const props = defineProps({
 const toggleFavorite = () => {
   favoritesStore.toggleItem(props.product)
 }
-
-// defineProps({
-//   product: {
-//     type: Object,
-//     required: true,
-//   },
-// })
-// console.log(product)
+const isFav = computed(() => favoritesStore.isFavorite(props.product.id))
 
 defineEmits(['order'])
 </script>
@@ -41,14 +35,11 @@ defineEmits(['order'])
           <p>{{ product.rating }} ⭐</p>
           <p>Rs. {{ product.price }}</p>
           <div class="flex gap-2">
-            <button @click="toggleFavorite">
-              <span :class="favoritesStore.isFavorite(product.id) ? 'text-red-500' : 'text-gray-400'">
-                ❤️
+            <button title="Add to favorites" @click="toggleFavorite">
+              <span :class="isFav ? 'text-red-500' : 'text-gray-400'">
+                {{ isFav ? '♥' : '♡' }}
               </span>
             </button>
-            <!-- wishlistStore.addItem(product) -->
-
-            <!-- ✅ meal → product -->
             <button class="bg-amber-500 cursor-pointer" @click="$emit('order', product)">
               Order Now
             </button>
@@ -57,4 +48,6 @@ defineEmits(['order'])
       </div>
     </div>
   </div>
+
+  <!-- <FavoritesView :product="product"> -->
 </template>

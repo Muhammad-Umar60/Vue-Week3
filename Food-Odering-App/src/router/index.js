@@ -15,13 +15,29 @@ const router = createRouter({
       path: '/favorites',
       name: "favorites",
       component: FavoritesView
+      
     },
      {
       path: '/food/:id',
       name: "foodDetail",
       component: ProductDetailView,
-      props:true
+      props:true,
+       beforeEnter: async (to, from, next) => {
+        const id = to.params.id
+
+        try {
+          const res = await fetch(`http://localhost:3000/products/${id}`)
+
+          if (!res.ok) {
+            return next('/') // redirect if invalid
+          }
+
+          next()
+        } catch (err) {
+          next('/')
+        }
     }
+  }
 
 
   ],

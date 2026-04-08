@@ -3,7 +3,8 @@ import ProductCard from './ProductCard.vue'
 import { useFetch } from '@/composables/useFetch'
 import BaseModal from './BaseModal.vue'
 import { computed, ref } from 'vue'
-import ProductPaginatoin from './ProductPaginatoin.vue'
+import ProductPaginatoin from './ProductPagination.vue'
+// import FavoritesView from '@/views/FavoritesView.vue'
 
 const { data, loading, error } = useFetch('http://localhost:3000/products')
 
@@ -40,6 +41,9 @@ const openModal = (meal) => {
 const confirmOrder = () => {
   showModal.value = false
 }
+
+
+
 </script>
 
 <template>
@@ -69,6 +73,7 @@ const confirmOrder = () => {
       <button @click="showModal = false">Cancel</button>
     </template>
   </BaseModal>
+
 
   <ProductPaginatoin
     :totalPages="totalPages"

@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import ProductList from '@/components/ProductList.vue'
+import { useFavoritesStore } from '@/stores/favorites';
+
+const store = useFavoritesStore()
+store.loadFavorites()
 </script>
 
 <template>

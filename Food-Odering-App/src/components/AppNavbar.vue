@@ -1,5 +1,14 @@
 <script setup>
 import { RouterLink } from 'vue-router'
+
+import { useFavoritesStore } from '@/stores/favorites';
+import { computed } from 'vue';
+
+const favoritesStore = useFavoritesStore()
+
+const favCount = computed(()=>favoritesStore.items.length)
+
+
 </script>
 
 <template>
@@ -12,6 +21,7 @@ import { RouterLink } from 'vue-router'
         </li>
         <li class="cursor-pointer hover:text-orange-500">
           <RouterLink to="/favorites"> Favorites </RouterLink>
+          <span v-if="favCount>0">{{ favCount}}</span>
         </li>
       </ul>
     </div>
