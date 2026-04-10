@@ -4,12 +4,20 @@ import { useFetch } from '@/composables/useFetch'
 import BaseModal from './BaseModal.vue'
 import { computed, ref } from 'vue'
 import ProductPaginatoin from './ProductPagination.vue'
-// import FavoritesView from '@/views/FavoritesView.vue'
 
 const { data, loading, error } = useFetch('http://localhost:3000/products')
 
 const showModal = ref(false)
 const selectedMeal = ref(null)
+
+const openModal = (meal) => {
+  selectedMeal.value = meal
+  showModal.value = true
+}
+
+const confirmOrder = () => {
+  showModal.value = false
+}
 
 const totalItems = computed(() => {
   return data.value ? data.value.length : 0
@@ -28,22 +36,6 @@ const paginatedData = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage
   return data.value.slice(start, start + itemsPerPage)
 })
-
-// help in future if we scale const handlePage = (pageNo) => {
-//   currentPage.value = pageNo
-// }
-
-const openModal = (meal) => {
-  selectedMeal.value = meal
-  showModal.value = true
-}
-
-const confirmOrder = () => {
-  showModal.value = false
-}
-
-
-
 </script>
 
 <template>
@@ -63,7 +55,7 @@ const confirmOrder = () => {
     </template>
 
     <div v-if="selectedMeal">
-      <img :src="selectedMeal.image" class="w-full h-40 object-cover rounded mb-2" />
+      <img loading="lazy" :src="selectedMeal.image" class="w-full h-40 object-cover rounded mb-2" />
       <p>{{ selectedMeal.description }}</p>
       <p class="mt-2 font-semibold">Rs. {{ selectedMeal.price }}</p>
     </div>
@@ -73,7 +65,6 @@ const confirmOrder = () => {
       <button @click="showModal = false">Cancel</button>
     </template>
   </BaseModal>
-
 
   <ProductPaginatoin
     :totalPages="totalPages"

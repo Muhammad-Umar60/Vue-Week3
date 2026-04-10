@@ -1,7 +1,8 @@
-import FavoritesView from '@/views/FavoritesView.vue'
-import HomeView from '@/views/HomeView.vue'
-import ProductDetailView from '@/views/ProductDetailView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
+
+const HomeView = () => import('@/views/HomeView.vue')
+const FavoritesView = () => import('@/views/FavoritesView.vue')
+const ProductDetailView = () => import('@/views/ProductDetailView.vue')
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

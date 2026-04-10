@@ -4,13 +4,9 @@ import { watch } from 'vue'
 
 export const useFavoritesStore = defineStore('favorites', () => {
 
-
-
   const items = ref([])
 
-  // ACTIONS
   const addItem = (product) => {
-    // prevent duplicates
     const exists = items.value.find(item => item.id === product.id)
     if (!exists) {
       items.value.push(product)
@@ -29,8 +25,8 @@ export const useFavoritesStore = defineStore('favorites', () => {
       addItem(product)
     }
   }
-watch(items, () => {
-  localStorage.setItem('favorites', JSON.stringify(items.value))
+watch(items, (newItems) => {
+  localStorage.setItem('favorites', JSON.stringify(newItems))
 }, { deep: true })
 
   // GETTERS

@@ -1,30 +1,29 @@
 <script setup lang="ts">
 import ProductList from '@/components/ProductList.vue'
-import { useFavoritesStore } from '@/stores/favorites';
+import { useFavoritesStore } from '@/stores/favorites'
 
 const store = useFavoritesStore()
 store.loadFavorites()
 </script>
 
 <template>
-  <header class="text-orange-600 p-6">
-    <div class="bg-amber-600/15 flex justify-between  gap-5">
-      <div>
-
-        <p>Fresh & Hot, Delivered Fast</p>
-        <h1>
+  <header class=" p-6">
+    <div class="flex justify-between gap-5">
+      <div class=" flex flex-col font-bold gap-4 justify-center">
+        <h1 class="text-4xl">
+          <p class="text-orange-600">Fresh & Hot, Delivered Fast</p>
           <span class="text-white"> Whar are you </span>
           <br />
-          craving
+           <p class="text-orange-600">craving</p>
           <span class="text-white"> today? </span>
         </h1>
         <input
-        class="p-2 w-80 rounded-2xl border border-gray-500"
-        type="text"
-        placeholder="Search burgers, sushi, pasta..."
+          class="text-white p-2 w-80 rounded-2xl border mt-12 border-gray-500"
+          type="text"
+          placeholder="Search burgers, sushi, pasta..."
         />
       </div>
-      <img  class="h-40" src="../assets/logo.png" alt="">
+      <img loading="lazy" class="w-100 h-100" src="../assets/logo.png" alt="" />
     </div>
   </header>
   <main class="p-5">

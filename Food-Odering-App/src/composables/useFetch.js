@@ -9,17 +9,16 @@ export function useFetch(url){
     const fetchData = async() =>{
         try{
             loading.value = true
+            // await new Promise (res => setTimeout(res,1000))
+
             const res = await fetch(url)
-     
-            await new Promise (res => setTimeout(res,1500))
             if (!res.ok) {
                 throw new Error(`Error: ${res.status}`)
             }
             data.value = await res.json()
-        }
+        }   
         catch(err){
            error.value = err.message || "Something went wrong"
-
         }
         finally{
             loading.value = false
