@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import ProductList from '@/components/ProductList.vue'
-import { useFavoritesStore } from '@/stores/favorites'
+import { ref} from 'vue'
 
-const store = useFavoritesStore()
-store.loadFavorites()
+const searchedFood = ref("")
+
 </script>
 
 <template>
@@ -18,6 +18,7 @@ store.loadFavorites()
           <span class="text-white"> today? </span>
         </h1>
         <input
+          v-model="searchedFood"
           class="text-white p-2 w-80 rounded-2xl border mt-12 border-gray-500"
           type="text"
           placeholder="Search burgers, sushi, pasta..."
@@ -35,8 +36,8 @@ store.loadFavorites()
       <button>Tikka</button>
     </div>
     <div>
-      <ProductList />
+      <ProductList :searchedFood=" searchedFood" />
     </div>
-    <div></div>
+    
   </main>
 </template>

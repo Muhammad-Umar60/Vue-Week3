@@ -9,8 +9,6 @@ export function useFetch(url){
     const fetchData = async() =>{
         try{
             loading.value = true
-            // await new Promise (res => setTimeout(res,1000))
-
             const res = await fetch(url)
             if (!res.ok) {
                 throw new Error(`Error: ${res.status}`)
@@ -24,7 +22,6 @@ export function useFetch(url){
             loading.value = false
         }
     }
-
     onMounted(fetchData)
 
     return {

@@ -24,21 +24,16 @@ export const useFavoritesStore = defineStore('favorites', () => {
     } else {
       addItem(product)
     }
-  }
+  } 
 watch(items, (newItems) => {
   localStorage.setItem('favorites', JSON.stringify(newItems))
 }, { deep: true })
 
-  // GETTERS
   const totalCount = computed(() => items.value.length)
 
   const isFavorite = (productId) => {
-    //  return Array.isArray(items.value) &&
          return items.value.some(item => item.id === productId)
   }
-const saveToLocalStorage = () => {
-  localStorage.setItem('favorites', JSON.stringify(items.value))
-}
 
 const loadFavorites = () => {
   const saved = localStorage.getItem('favorites')

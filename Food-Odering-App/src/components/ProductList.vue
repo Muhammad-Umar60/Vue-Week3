@@ -2,7 +2,7 @@
 import ProductCard from './ProductCard.vue'
 import { useFetch } from '@/composables/useFetch'
 import BaseModal from './BaseModal.vue'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import ProductPaginatoin from './ProductPagination.vue'
 
 const { data, loading, error } = useFetch('http://localhost:3000/products')
@@ -19,9 +19,7 @@ const confirmOrder = () => {
   showModal.value = false
 }
 
-const totalItems = computed(() => {
-  return data.value ? data.value.length : 0
-})
+const totalItems = computed(() => filteredData.value.length)
 
 const itemsPerPage = 6
 const totalPages = computed(() => {
@@ -29,13 +27,34 @@ const totalPages = computed(() => {
 })
 
 const currentPage = ref(1)
-const paginatedData = computed(() => {
-  if (!data.value) {
-    return []
-  }
-  const start = (currentPage.value - 1) * itemsPerPage
-  return data.value.slice(start, start + itemsPerPage)
+
+const props = defineProps({
+  searchedFood: String,
 })
+
+const filteredData = computed(() => {
+  if (!data.value) return []
+
+  if (props.searchedFood.length === 0) {
+    return data.value
+  }
+
+  return data.value.filter((item) =>
+    item.name.toLowerCase().includes(props.searchedFood.toLowerCase()),
+  )
+})
+
+const paginatedData = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage
+  return filteredData.value.slice(start, start + itemsPerPage)
+})
+
+watch(
+  () => props.searchedFood,
+  () => {
+    currentPage.value = 1
+  },
+)
 </script>
 
 <template>

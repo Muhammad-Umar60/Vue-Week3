@@ -1,7 +1,10 @@
 <script setup>
 import Navbar from './components/AppNavbar.vue'
-// import HomeView from './views/HomeView.vue'
-// import ProductDetailView from './views/ProductDetailView.vue'
+import { useFavoritesStore } from './stores/favorites';
+
+const store = useFavoritesStore()
+store.loadFavorites()
+
 </script>
 
 <template>
