@@ -13,7 +13,6 @@
     "lint:eslint": "eslint . --fix --cache",
     "format": "prettier --write --experimental-cli src/",
       "test": "vitest"
-
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",

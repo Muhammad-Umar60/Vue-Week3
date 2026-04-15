@@ -35,13 +35,13 @@ watch(items, (newItems) => {
          return items.value.some(item => item.id === productId)
   }
 
-const loadFavorites = () => {
-  const saved = localStorage.getItem('favorites')
-  if (saved) {
-    items.value = JSON.parse(saved)
-  } else {
-    items.value = []
-  }
+  const loadFavorites = () => {
+    const saved = localStorage.getItem('favorites')
+      if (saved) {
+        items.value = JSON.parse(saved)
+      } else {
+        items.value = []
+      }
 }
   return { 
     items, 

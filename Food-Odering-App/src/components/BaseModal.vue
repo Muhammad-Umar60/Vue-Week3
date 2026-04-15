@@ -19,7 +19,7 @@ const closeModal = () => {
         class="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
         @click.self="closeModal"
       >
-        <div class="bg-white text-black rounded-xl shadow-2xl w-[90%] max-w-md p-6">
+        <div class="bg-gray-800 text-black rounded-xl shadow-2xl w-[90%] max-w-md p-6">
           <!-- Header -->
           <div class="flex justify-between items-center mb-4">
             <slot name="header" />
@@ -31,12 +31,10 @@ const closeModal = () => {
             </button>
           </div>
 
-          <!-- Body -->
           <div class="mb-4">
             <slot />
           </div>
 
-          <!-- Footer -->
           <div class="flex justify-end gap-3">
             <slot name="footer" />
           </div>
