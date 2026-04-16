@@ -34,7 +34,7 @@ const router = createRouter({
           }
 
           next()
-        } catch (err) {
+        } catch {
           next('/')
         }
     }
