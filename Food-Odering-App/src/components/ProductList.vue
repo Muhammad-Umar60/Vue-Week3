@@ -60,12 +60,9 @@ watch(
 
 <template>
   <div class="max-w-6xl mx-auto px-4 py-6">
-    <!-- ⏳ Loading -->
     <p v-if="loading" class="text-center text-gray-400 text-lg">
       Loading meals...
     </p>
-
-    <!-- ❌ Error -->
     <p v-if="error" class="text-center text-red-500 text-lg">
       Something went wrong!
     </p>

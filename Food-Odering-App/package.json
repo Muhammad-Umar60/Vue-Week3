@@ -12,9 +12,10 @@
     "lint:oxlint": "oxlint . --fix",
     "lint:eslint": "eslint . --fix --cache",
     "format": "prettier --write --experimental-cli src/",
-      "test": "vitest"
+    "test": "vitest"
   },
   "dependencies": {
+    "@pinia/testing": "^1.0.3",
     "@tailwindcss/vite": "^4.2.2",
     "pinia": "^3.0.4",
     "tailwindcss": "^4.2.2",

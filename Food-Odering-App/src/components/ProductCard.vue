@@ -24,10 +24,7 @@ const emit = defineEmits(['order'])
   >
     <RouterLink :to="`/food/${product.id}`">
       <div class="relative w-full h-48 bg-gray-800">
-        <div
-          v-if="!imageLoaded"
-          class="absolute inset-0 overflow-hidden"
-        >
+        <div v-if="!imageLoaded" class="absolute inset-0 overflow-hidden">
           <div
             class="w-full h-full animate-shimmer bg-gradient-to-r from-gray-800 via-gray-600 to-gray-800 bg-[length:400px_100%]"
           />
@@ -45,9 +42,7 @@ const emit = defineEmits(['order'])
     </RouterLink>
 
     <div class="p-4 flex flex-col gap-3 flex-1">
-      <span
-        class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded-full w-fit"
-      >
+      <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded-full w-fit">
         {{ product.category }}
       </span>
 
@@ -56,38 +51,23 @@ const emit = defineEmits(['order'])
           {{ product.name }}
         </h2>
       </RouterLink>
-
-      <!-- Description -->
       <p class="text-sm text-gray-400 line-clamp-2">
         {{ product.description }}
       </p>
-
-      <!-- Rating + Price -->
       <div class="flex justify-between items-center mt-auto">
-        <span class="text-sm text-yellow-400">
-          ⭐ {{ product.rating }}
-        </span>
-        <span class="font-semibold text-orange-400">
-          Rs. {{ product.price }}
-        </span>
+        <span class="text-sm text-yellow-400"> ⭐ {{ product.rating }} </span>
+        <span class="font-semibold text-orange-400"> Rs. {{ product.price }} </span>
       </div>
-
-      <!-- Actions -->
       <div class="flex justify-between items-center mt-2">
-        <!-- ❤️ Favorite -->
         <button
           title="Add to favorites"
           @click="toggleFavorite"
           class="text-xl transition cursor-pointer"
         >
-          <span
-            :class="isFav ? 'text-red-500' : 'text-gray-400 hover:text-red-400'"
-          >
+          <span :class="isFav ? 'text-red-500' : 'text-gray-400 hover:text-red-400'">
             {{ isFav ? '♥' : '♡' }}
           </span>
         </button>
-
-        <!-- 🛒 Order -->
         <button
           class="px-4 py-1.5 bg-orange-500 cursor-pointer hover:bg-orange-600 rounded-lg text-sm font-medium transition"
           @click="emit('order', product)"
