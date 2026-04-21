@@ -3,6 +3,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import ProductCard from '@/components/ProductCard.vue'
 import { createTestingPinia } from '@pinia/testing'
 import { useFavoritesStore } from '@/stores/favorites'
+import { nextTick } from 'vue'
 
 vi.mock('vue-router', () => ({
   RouterLink: {
@@ -57,9 +58,9 @@ describe('ProductCard', () => {
   })
   
   it('calls toggleItem when favorite button is clicked', async () => {
-    const buttons = wrapper.findAll('button')
+    const button = wrapper.find('[data-testid="toggleFavBtn"]')
 
-    await buttons[0].trigger('click')
+    await button.trigger('click')
 
     expect(store.toggleItem).toHaveBeenCalled()
     expect(store.toggleItem).toHaveBeenCalledWith(product)
@@ -70,14 +71,14 @@ describe('ProductCard', () => {
 
     store.isFavorite = vi.fn(() => false)
 
-    await wrapper.vm.$nextTick()
+    await nextTick()
     expect(wrapper.text()).toContain('♡')
 
     await buttons[0].trigger('click')
     expect(store.toggleItem).toHaveBeenCalled()
     store.isFavorite = vi.fn(() => true)
 
-    await wrapper.vm.$nextTick()
+    await nextTick()
     expect(wrapper.text()).toContain('♥')
   })
 })

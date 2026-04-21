@@ -63,6 +63,7 @@ const emit = defineEmits(['order'])
           title="Add to favorites"
           @click="toggleFavorite"
           class="text-xl transition cursor-pointer"
+          data-testid="toggleFavBtn"
         >
           <span :class="isFav ? 'text-red-500' : 'text-gray-400 hover:text-red-400'">
             {{ isFav ? '♥' : '♡' }}
