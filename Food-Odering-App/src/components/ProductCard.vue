@@ -26,10 +26,9 @@ const emit = defineEmits(['order'])
       <div class="relative w-full h-48 bg-gray-800">
         <div v-if="!imageLoaded" class="absolute inset-0 overflow-hidden">
           <div
-            class="w-full h-full animate-shimmer bg-gradient-to-r from-gray-800 via-gray-600 to-gray-800 bg-[length:400px_100%]"
+            class="w-full h-full animate-shimmer bg-linear-to-r from-gray-800 via-gray-600 to-gray-800 bg-size-[400px_100%]"
           />
         </div>
-
         <img
           class="w-full h-48 object-cover transition duration-300"
           :class="imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-105'"
@@ -40,12 +39,10 @@ const emit = defineEmits(['order'])
         />
       </div>
     </RouterLink>
-
     <div class="p-4 flex flex-col gap-3 flex-1">
       <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded-full w-fit">
         {{ product.category }}
       </span>
-
       <RouterLink :to="`/food/${product.id}`">
         <h2 class="text-lg font-semibold hover:text-orange-400 transition">
           {{ product.name }}

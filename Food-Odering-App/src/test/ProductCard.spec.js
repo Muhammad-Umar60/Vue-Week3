@@ -4,12 +4,19 @@ import ProductCard from '@/components/ProductCard.vue'
 import { createTestingPinia } from '@pinia/testing'
 import { useFavoritesStore } from '@/stores/favorites'
 import { nextTick } from 'vue'
+import { createRouter, createWebHistory } from 'vue-router'
+
 
 vi.mock('vue-router', () => ({
   RouterLink: {
-    template: '<a><slot /></a>',
+    props: ['to'],
+    template: '<a :href="to"><slot /></a>',
   },
 }))
+
+const routes = [
+  { path: '/food/:id', name: 'foodDetail', component: { template: '<div>Food</div>' } },
+]
 
 const product = {
   id: 1,
@@ -56,7 +63,7 @@ describe('ProductCard', () => {
     expect(wrapper.emitted('order')).toBeTruthy()
     expect(wrapper.emitted('order')[0]).toEqual([product])
   })
-  
+
   it('calls toggleItem when favorite button is clicked', async () => {
     const button = wrapper.find('[data-testid="toggleFavBtn"]')
 
@@ -81,4 +88,15 @@ describe('ProductCard', () => {
     await nextTick()
     expect(wrapper.text()).toContain('♥')
   })
+
+  it('renders correct router link for product', () => {
+    const links = wrapper.findAll('a')
+    links.forEach((link,index)=>{
+      console.log(index,link.html())
+    })
+    expect(links[0].attributes('href')).toBe('/food/1')
+    expect(links[1].attributes('href')).toBe('/food/1')
+  })
 })
+
+
