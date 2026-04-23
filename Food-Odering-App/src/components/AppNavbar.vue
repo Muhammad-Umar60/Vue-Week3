@@ -34,7 +34,7 @@ const favCount = computed(() => favoritesStore.items.length)
             active-class="bg-orange-500/30 text-orange-500"
           >
             Favorites
-            <span v-if="favCount > 0">{{ favCount }}</span>
+            <span data-testid="fav-count" v-if="favCount > 0">{{ favCount }}</span>
           </RouterLink>
         </li>
       </ul>
