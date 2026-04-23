@@ -1,6 +1,5 @@
 <script setup>
 import { RouterLink } from 'vue-router'
-
 import { useFavoritesStore } from '@/stores/favorites'
 import { computed } from 'vue'
 

@@ -2,6 +2,7 @@
 import { RouterLink } from 'vue-router'
 import { useFavoritesStore } from '@/stores/favorites'
 import { ref, computed } from 'vue'
+import { Button } from 'my-ui-components-umar'
 
 const favoritesStore = useFavoritesStore()
 const imageLoaded = ref(false)
@@ -66,12 +67,12 @@ const emit = defineEmits(['order'])
             {{ isFav ? '♥' : '♡' }}
           </span>
         </button>
-        <button
-          class="px-4 py-1.5 bg-orange-500 cursor-pointer hover:bg-orange-600 rounded-lg text-sm font-medium transition"
+        <Button size="sm"
+
           @click="emit('order', product)"
         >
           Order Now
-        </button>
+        </Button>
       </div>
     </div>
   </div>

@@ -4,6 +4,7 @@ import { useFetch } from '@/composables/useFetch'
 import BaseModal from './BaseModal.vue'
 import { computed, ref, watch } from 'vue'
 import ProductPaginatoin from './ProductPagination.vue'
+import { Button } from 'my-ui-components-umar'
 
 const { data, loading, error } = useFetch('http://localhost:3000/products')
 
@@ -118,12 +119,9 @@ watch(
 
     <template #footer>
       <div class="flex justify-end gap-3 mt-4">
-        <button
-          @click="confirmOrder"
-          class="px-4 py-2 cursor-pointer bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition"
-        >
+        <Button size="sm" @click="confirmOrder">
           Confirm
-        </button>
+        </Button>
 
         <button
           @click="showModal = false"
