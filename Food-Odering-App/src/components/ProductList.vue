@@ -8,7 +8,6 @@ import { Button } from 'my-ui-components-umar'
 
 const { data, loading, error } = useFetch('http://localhost:3000/products')
 
-
 const showModal = ref(false)
 const selectedMeal = ref(null)
 
@@ -61,31 +60,17 @@ watch(
 
 <template>
   <div class="max-w-6xl mx-auto px-4 py-6">
-    <p v-if="loading" class="text-center text-gray-400 text-lg">
-      Loading meals...
-    </p>
-    <p v-if="error" class="text-center text-red-500 text-lg">
-      Something went wrong!
-    </p>
-
-    <!-- 🛍 Products Grid -->
-    <ul
-      v-if="!loading && !error"
-      class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
-    >
+    <p v-if="loading" class="text-center text-gray-400 text-lg">Loading meals...</p>
+    <p v-if="error" class="text-center text-red-500 text-lg">Something went wrong!</p>
+    <ul v-if="!loading && !error" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
       <li
         v-for="item in paginatedData"
         :key="item.id"
         class="transition-transform hover:scale-[1.02]"
       >
-        <ProductCard
-          @order="openModal"
-          :product="item"
-        />
+        <ProductCard @order="openModal" :product="item" />
       </li>
     </ul>
-
-    <!-- 📭 Empty State -->
     <p
       v-if="!loading && !error && paginatedData.length === 0"
       class="text-center text-gray-500 mt-10"
@@ -100,28 +85,21 @@ watch(
         {{ selectedMeal?.name }}
       </h2>
     </template>
-
     <div v-if="selectedMeal" class="flex flex-col gap-4">
       <img
         loading="lazy"
         :src="selectedMeal.image"
         class="w-full h-52 object-cover rounded-xl shadow"
       />
-
       <p class="text-gray-400 leading-relaxed">
         {{ selectedMeal.description }}
       </p>
-
-      <p class="text-xl font-bold text-orange-500">
-        Rs. {{ selectedMeal.price }}
-      </p>
+      <p class="text-xl font-bold text-orange-500">Rs. {{ selectedMeal.price }}</p>
     </div>
 
     <template #footer>
       <div class="flex justify-end gap-3 mt-4">
-        <Button size="sm" @click="confirmOrder">
-          Confirm
-        </Button>
+        <Button size="sm" @click="confirmOrder"> Confirm </Button>
 
         <button
           @click="showModal = false"
@@ -133,7 +111,6 @@ watch(
     </template>
   </BaseModal>
 
-  <!-- 📄 Pagination -->
   <div class="max-w-6xl mx-auto px-4 pb-6">
     <ProductPaginatoin
       :totalPages="totalPages"

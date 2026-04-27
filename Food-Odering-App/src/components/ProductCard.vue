@@ -34,7 +34,7 @@ const emit = defineEmits(['order'])
           class="w-full h-48 object-cover transition duration-300"
           :class="imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-105'"
           loading="lazy"
-          :src="product.image"
+          :src="`${product.image}?w=900&q=90&auto=format&fit=crop`"
           :alt="product.name"
           @load="imageLoaded = true"
         />
@@ -67,12 +67,7 @@ const emit = defineEmits(['order'])
             {{ isFav ? '♥' : '♡' }}
           </span>
         </button>
-        <Button size="sm"
-
-          @click="emit('order', product)"
-        >
-          Order Now
-        </Button>
+        <Button size="sm" @click="emit('order', product)"> Order Now </Button>
       </div>
     </div>
   </div>
