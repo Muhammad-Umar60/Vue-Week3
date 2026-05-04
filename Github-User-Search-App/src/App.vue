@@ -22,7 +22,6 @@ const debouncedFetch = debounce(async(query)=>{
 
   try{
     status.value = "loading..."
-    console.log(query)
     const result = await fetchUser(query)
     users.value = result
     count.value = counter()
@@ -55,7 +54,7 @@ onMounted(()=>{
       Search count: {{ count }}
     </p>
     <p>{{ status }}</p>
-    <div class="pt-8 flex gap-3 items-center" v-for="user in users">
+    <div class="pt-8 flex gap-3 items-center" v-for="user in users" :key="user">
       <img class="w-12" :src="user.avatar_url" alt=""> 
       <a class="text-blue-800 underline" :href="user.html_url"> {{ user.login }}</a>
     </div>
