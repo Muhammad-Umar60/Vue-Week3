@@ -1,8 +1,45 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router";
+
+const HomeView = () => import("@/views/HomeView.vue");
+const FavoritesView = () => import("@/views/FavoritesView.vue");
+const ProductDetailView = () => import("@/views/ProductDetailView.vue");
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [],
-})
+  routes: [
+    {
+      path: "/",
+      name: "home",
+      component: HomeView,
+    },
+    {
+      path: "/favorites",
+      name: "favorites",
+      component: FavoritesView,
+    },
+    {
+      path: "/food/:id",
+      name: "foodDetail",
+      component: ProductDetailView,
+      props: true,
+      beforeEnter: async (to, from, next) => {
+        const id = to.params.id;
 
-export default router
+        try {
+          const res = await fetch(`http://localhost:3000/products/${id}`);
+
+          if (!res.ok) {
+            return next("/"); // redirect if invalid
+          }
+
+          next();
+        } catch {
+          next("/");
+        }
+      },
+    },
+  ],
+});
+
+export default router;
