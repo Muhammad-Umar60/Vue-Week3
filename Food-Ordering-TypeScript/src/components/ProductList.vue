@@ -1,68 +1,87 @@
-<script setup>
-import ProductCard from './ProductCard.vue'
-import { useFetch } from '@/composables/useFetch'
-import BaseModal from './BaseModal.vue'
-import { computed, ref, watch } from 'vue'
-import ProductPaginatoin from './ProductPagination.vue'
-import { Button } from 'my-ui-components-umar'
+<script setup lang="ts">
+import ProductCard from "./ProductCard.vue";
+import { useFetch } from "@/composables/useFetch";
+import BaseModal from "./BaseModal.vue";
+import { computed, ref, watch } from "vue";
+import ProductPaginatoin from "./ProductPagination.vue";
 
-const { data, loading, error } = useFetch('http://localhost:3000/products')
-
-const showModal = ref(false)
-const selectedMeal = ref(null)
-
-const openModal = (meal) => {
-  selectedMeal.value = meal
-  showModal.value = true
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  rating: number;
+  image: string;
+  category: string;
+  description: string;
 }
 
-const confirmOrder = () => {
-  showModal.value = false
-}
+const { data, loading, error } = useFetch<Product[]>(
+  "http://localhost:3000/products",
+);
 
-const totalItems = computed(() => filteredData.value.length)
+const showModal = ref<boolean>(false);
+const selectedMeal = ref<Product | null>(null);
 
-const itemsPerPage = 6
-const totalPages = computed(() => {
-  return Math.ceil(totalItems.value / itemsPerPage)
-})
+const openModal = (meal: Product): void => {
+  selectedMeal.value = meal;
+  showModal.value = true;
+};
 
-const currentPage = ref(1)
+const confirmOrder = (): void => {
+  showModal.value = false;
+};
 
-const props = defineProps({
-  searchedFood: String,
-})
+const props = defineProps<{
+  searchedFood: string;
+}>();
 
-const filteredData = computed(() => {
-  if (!data.value) return []
+const totalItems = computed<number>(() => filteredData.value.length);
 
-  if (props.searchedFood.length === 0) {
-    return data.value
+const itemsPerPage = 6;
+
+const totalPages = computed<number>(() => {
+  return Math.ceil(totalItems.value / itemsPerPage);
+});
+
+const currentPage = ref<number>(1);
+
+const filteredData = computed<Product[]>(() => {
+  if (!data.value) return [];
+
+  if (!props.searchedFood || props.searchedFood.length === 0) {
+    return data.value;
   }
 
   return data.value.filter((item) =>
     item.name.toLowerCase().includes(props.searchedFood.toLowerCase()),
-  )
-})
+  );
+});
 
-const paginatedData = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage
-  return filteredData.value.slice(start, start + itemsPerPage)
-})
+const paginatedData = computed<Product[]>(() => {
+  const start = (currentPage.value - 1) * itemsPerPage;
+  return filteredData.value.slice(start, start + itemsPerPage);
+});
 
 watch(
   () => props.searchedFood,
   () => {
-    currentPage.value = 1
+    currentPage.value = 1;
   },
-)
+);
 </script>
 
 <template>
   <div class="max-w-6xl mx-auto px-4 py-6">
-    <p v-if="loading" class="text-center text-gray-400 text-lg">Loading meals...</p>
-    <p v-if="error" class="text-center text-red-500 text-lg">Something went wrong!</p>
-    <ul v-if="!loading && !error" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <p v-if="loading" class="text-center text-gray-400 text-lg">
+      Loading meals...
+    </p>
+    <p v-if="error" class="text-center text-red-500 text-lg">
+      Something went wrong!
+    </p>
+    <ul
+      v-if="!loading && !error"
+      class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+    >
       <li
         v-for="item in paginatedData"
         :key="item.id"
@@ -94,7 +113,9 @@ watch(
       <p class="text-gray-400 leading-relaxed">
         {{ selectedMeal.description }}
       </p>
-      <p class="text-xl font-bold text-orange-500">Rs. {{ selectedMeal.price }}</p>
+      <p class="text-xl font-bold text-orange-500">
+        Rs. {{ selectedMeal.price }}
+      </p>
     </div>
 
     <template #footer>
